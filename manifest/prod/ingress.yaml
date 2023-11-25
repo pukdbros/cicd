@@ -4,10 +4,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTP
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-  name: simple-boilerplate-app-mee-ingress
+  name: simple-boilerplate-app-mee-ingress-prod
   namespace: group-4
   labels:
-    name: simple-boilerplate-app-mee-ingress
+    name: simple-boilerplate-app-mee-ingress-prod
 spec:
   ingressClassName: nginx
   rules:
@@ -18,6 +18,6 @@ spec:
         path: /group-4-mee(/|$)(.*)
         backend:
           service:
-            name: simple-boilerplate-app-mee-service
+            name: simple-boilerplate-app-mee-service-prod
             port: 
               number: 80
