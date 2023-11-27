@@ -9,7 +9,7 @@ on:
       - develop
 
 env:
-  IMAGE_TAG: $GITHUB.SHA
+  IMAGE_TAG: $github.sha
   IMAGE_NAME: pukdbros/simple-boilerplate-app
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simple-boilerplate-app:${{ GITHUB.SHA }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simple-boilerplate-app:${{ github.sha }}
 
   deploy_to_k8s:
     name: Deploy to K8S
@@ -44,7 +44,7 @@ jobs:
       run: ${{ secrets.KUBE_CONFIG }}
     - name: Modify Manifest and Update YAML File
       run: |
-        export NAME_WITH_TAG=${{ env.IMAGE_NAME }}:${{ GITHUB.SHA }}
+        export NAME_WITH_TAG=${{ env.IMAGE_NAME }}:${{ github.sha }}
         yq -i '.spec.template.spec.containers[0].image=strenv(NAME_WITH_TAG)' ./manifest/dev/deployment.yaml
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
